@@ -1,16 +1,17 @@
 class powerdns::params {
   case $::osfamily {
     'Debian': {
-      $service_name = 'pdns'
       $config_dir = '/etc/powerdns'
       $module_dir = '/usr/lib/powerdns'
       $server_socket_dir = '/var/run'
+      $server_service_name = 'pdns'
       $server_config_file = "${config_dir}/pdns.conf"
       $server_package_name = 'pdns-server'
       $server_backend_mysql = 'pdns-backend-mysql'
       $server_backend_pgsql = 'pdns-backend-pgsql'
       $server_uid = 'pdns'
       $server_gid = 'pdns'
+      $recursor_service_name = 'pdns'
       $recursor_config_file = "${config_dir}/recursor.conf"
       $recursor_package_name = 'pdns-recursor'
       $recursor_uid = 'pdns'
