@@ -41,14 +41,17 @@ class powerdns (
   $recursor_options = {},
   $server_options = {},
   $package_ensure = 'installed',
-  $service_ensure = 'running',
-  $service_enable = true,
-  $service_name = $::powerdns::params::service_name,
   $config_dir = $::powerdns::params::config_dir,
+  $server_service_name = $::powerdns::params::server_service_name,
+  $server_service_enable = true,
+  $server_service_ensure = 'running',
   $server_config_file = $::powerdns::params::server_config_file,
   $server_package_name = $::powerdns::params::server_package_name,
   $server_backend_mysql = false,
   $server_backend_pgsql = false,
+  $recursor_service_name = $::powerdns::params::recursor_service_name,
+  $recursor_service_enable = true,
+  $recursor_service_ensure = 'running',
   $recursor_config_file = $::powerdns::params::recursor_config_file,
   $recursor_package_name = $::powerdns::params::recursor_package_name,
   $purge_config_dir = true,
@@ -58,15 +61,20 @@ class powerdns (
   "${ensure} is not supported for ensure.
   Allowed values are 'present' and 'absent'.")
 
-  validate_re($service_ensure, '^(running|stopped)$',
-  "${service_ensure} is not supported for service_ensure.
+  validate_re($server_service_ensure, '^(running|stopped)$',
+  "${server_service_ensure} is not supported for server_service_ensure.
   Allowed values are 'running' and 'stopped'.")
 
-  validate_bool($service_enable)
+  validate_re($recursor_service_ensure, '^(running|stopped)$',
+  "${recursor_service_ensure} is not supported for recursor_service_ensure.
+  Allowed values are 'running' and 'stopped'.")
+
+  validate_bool($server_service_enable)
   validate_hash($server_options)
-  validate_hash($recursor_options)
   validate_bool($server_backend_mysql)
   validate_bool($server_backend_pgsql)
+  validate_hash($recursor_options)
+  validate_bool($recursor_service_enable)
 
   $server_options_merged = merge(
     $powerdns::params::default_server_options, $server_options
@@ -123,7 +131,16 @@ class powerdns (
     group   => 0,
     mode    => '0644',
     content => template("${module_name}/pdns.conf.erb"),
+    notify  => Service[$server_service_name],
     require => File[$config_dir],
+  }
+
+  service { $server_service_name:
+    ensure     => $server_service_ensure,
+    enable     => $server_service_enable,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => File[$server_config_file],
   }
 
   if $enable_recursor {
@@ -140,7 +157,16 @@ class powerdns (
       group   => 0,
       mode    => '0644',
       content => template("${module_name}/recursor.conf.erb"),
+      notify  => Service[$recursor_service_name],
       require => Package[$recursor_package_name],
+    }
+
+    service { $recursor_service_name:
+      ensure     => $recursor_service_ensure,
+      enable     => $recursor_service_enable,
+      hasstatus  => true,
+      hasrestart => true,
+      require    => File[$recursor_config_file],
     }
   }
 }
