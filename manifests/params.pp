@@ -5,7 +5,7 @@ class powerdns::params {
       $config_dir = '/etc/powerdns'
       $module_dir = '/usr/lib/powerdns'
       $server_socket_dir = '/var/run'
-      $server_config_file = "${server_config_dir}/pdns.conf"
+      $server_config_file = "${config_dir}/pdns.conf"
       $server_package_name = 'pdns-server'
       $server_backend_mysql = 'pdns-backend-mysql'
       $server_backend_pgsql = 'pdns-backend-pgsql'
@@ -22,7 +22,7 @@ class powerdns::params {
   }
 
   $default_server_options = {
-    'allow-recursion' => '127.0.0.1'.
+    'allow-recursion' => '127.0.0.1',
     'config-dir'      => $config_dir,
     'daemon'          => 'yes',
     'disable-axfr'    => 'yes',
