@@ -68,6 +68,14 @@ class powerdns (
   validate_bool($server_backend_mysql)
   validate_bool($server_backend_pgsql)
 
+  $server_options_merged = merge(
+    $powerdns::params::default_server_options, $server_options
+  )
+
+  $recursor_options_merged = merge(
+    $powerdns::params::default_recursor_options, $recursor_options
+  )
+
   case $ensure {
     present: {
       $package_ensure_real = $package_ensure
