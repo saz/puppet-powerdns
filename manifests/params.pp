@@ -11,7 +11,7 @@ class powerdns::params {
       $server_backend_pgsql = 'pdns-backend-pgsql'
       $server_uid = 'pdns'
       $server_gid = 'pdns'
-      $recursor_service_name = 'pdns'
+      $recursor_service_name = 'pdns-recursor'
       $recursor_config_file = "${config_dir}/recursor.conf"
       $recursor_package_name = 'pdns-recursor'
       $recursor_uid = 'pdns'
