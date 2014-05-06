@@ -118,12 +118,12 @@ class powerdns (
   }
 
   file { $server_config_file:
-    ensure   => $file_ensure,
-    owner    => 0,
-    group    => 0,
-    mode     => '0644',
-    template => content("${module_name}/pdns.conf.erb"),
-    require  => File[$config_dir],
+    ensure  => $file_ensure,
+    owner   => 0,
+    group   => 0,
+    mode    => '0644',
+    content => template("${module_name}/pdns.conf.erb"),
+    require => File[$config_dir],
   }
 
   if $enable_recursor {
@@ -135,12 +135,12 @@ class powerdns (
     }
 
     file { $recursor_config_file:
-      ensure   => file,
-      owner    => 0,
-      group    => 0,
-      mode     => '0644',
-      template => content("${module_name}/recursor.conf.erb"),
-      require  => Package[$recursor_package_name],
+      ensure  => file,
+      owner   => 0,
+      group   => 0,
+      mode    => '0644',
+      content => template("${module_name}/recursor.conf.erb"),
+      require => Package[$recursor_package_name],
     }
   }
 }

@@ -2,5 +2,5 @@
 
 <%- options = scope.lookupvar('powerdns::recursor_options_merged') -%>
 <%- options.each do |k, v| -%>
-<%= k %> = <%= v %>
+<%= k %>=<%= v %>
 <%- end -%>
