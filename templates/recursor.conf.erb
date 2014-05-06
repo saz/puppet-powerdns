@@ -1,0 +1,6 @@
+# This file is managed by Puppet
+
+<%- options = scope.lookupvar('powerdns::recursor_options') -%>
+<%- options.each do |k, v| -%>
+<%= k %> = <%= v %>
+<%- end -%>
