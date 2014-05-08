@@ -122,6 +122,7 @@ class powerdns (
     mode    => '0755',
     purge   => $purge_config_dir,
     recurse => true,
+    force   => true,
     require => Package[$server_package_name],
   }
 
