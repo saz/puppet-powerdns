@@ -28,7 +28,6 @@ class powerdns::params {
     'daemon'          => 'yes',
     'disable-axfr'    => 'yes',
     'guardian'        => 'yes',
-    'lazy-recursion'  => 'yes',
     'local-address'   => '0.0.0.0',
     'local-port'      => '53',
     'module-dir'      => $module_dir,
