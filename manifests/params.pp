@@ -2,11 +2,7 @@ class powerdns::params {
   case $::osfamily {
     'Debian': {
       $config_dir = '/etc/powerdns'
-      if $::lsbdistcodename == 'trusty' {
-        $module_dir = '/usr/lib/powerdns'
-      } else {
-        $module_dir = '/usr/lib/x86_64-linux-gnu/pdns'
-      }
+      $module_dir = '/usr/lib/x86_64-linux-gnu/pdns'
       $server_socket_dir = '/var/run'
       $server_service_name = 'pdns'
       $server_config_file = "${config_dir}/pdns.conf"
