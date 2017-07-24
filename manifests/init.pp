@@ -166,6 +166,7 @@ class powerdns (
       ensure     => $recursor_service_ensure,
       enable     => $recursor_service_enable,
       hasstatus  => false,
+      pattern    => 'pdns_recursor',
       hasrestart => true,
       require    => File[$recursor_config_file],
     }
