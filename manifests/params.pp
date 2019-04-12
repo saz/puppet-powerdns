@@ -23,7 +23,6 @@ class powerdns::params {
   }
 
   $default_server_options = {
-    'allow-recursion' => '127.0.0.1',
     'config-dir'      => $config_dir,
     'daemon'          => 'yes',
     'disable-axfr'    => 'yes',
