@@ -87,13 +87,11 @@ class powerdns (
   case $ensure {
     present: {
       $package_ensure_real = $package_ensure
-      $service_ensure_real = $service_ensure
       $file_ensure = 'file'
       $directory_ensure = 'directory'
     }
     absent: {
       $package_ensure_real = 'absent'
-      $service_ensure_real = 'stopped'
       $file_ensure = 'file'
       $directory_ensure = 'absent'
     }
